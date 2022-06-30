@@ -19,6 +19,22 @@ export class Widget extends Component {
       };
     });
   };
+  countTotalFeedback = () => {
+    return Object.values(this.state).reduce((previousValue, number) => {
+      return previousValue + number;
+    }, 0);
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    const TotalFeedbackNumber = this.countTotalFeedback();
+    const GoodFeedbackNumber = this.state.good;
+    const PositiveFeedbackPercentage =
+      (GoodFeedbackNumber * 100) / TotalFeedbackNumber;
+    //
+    return isNaN(PositiveFeedbackPercentage.toFixed(0))
+      ? '0'
+      : PositiveFeedbackPercentage.toFixed(0);
+  };
 
   render() {
     return (
@@ -43,6 +59,8 @@ export class Widget extends Component {
             </li>
           ))}
         </ul>
+        <p>Total : {this.countTotalFeedback()}</p>
+        <p>Positive feedback : {this.countPositiveFeedbackPercentage()} %</p>
       </div>
     );
   }
