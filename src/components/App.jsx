@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-// import { Widget } from "./Widget/Widget";
 import Statistics from './Widget/Statistics';
 import FeedbackOptions from './Widget/FeedbackOptions';
 import Section from './Widget/Section';
+import Notification from './Widget/Notification'
 
 export class App extends Component {
 
@@ -44,6 +44,9 @@ export class App extends Component {
 
   render() {
     const { good, neutral, bad } = this.state;
+    const total = this.countTotalFeedback();
+  
+   
 
     return (<div>
       <Section title="Please leave feedback">
@@ -53,11 +56,13 @@ export class App extends Component {
       </Section>
       
       <Section title="Statistics">
-        <Statistics good={good}
+        {total === 0 ? (<Notification message="There is no feedback"></Notification>) :
+        (<Statistics good={good}
         neutral={neutral}
         bad={bad}
         total={this.countTotalFeedback()}
-        positivePercentage={this.countPositiveFeedbackPercentage()} />
+        positivePercentage={this.countPositiveFeedbackPercentage()} />)}
+        
       </Section>
       
     
